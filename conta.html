@@ -27,19 +27,19 @@
           <input class="input" id="email" placeholder="Seu e-mail" />
         </div>
 
-        <div class="formRow">
-          <select class="input" id="plano">
-            <option value="basico">Plano Básico (R$7,90)</option>
-            <option value="premium">Plano Premium (R$27,90)</option>
-          </select>
-          <button class="btnPrimary" id="salvar">Salvar</button>
-        </div>
-
-        <div class="muted" id="status"></div>
-      </section>
-
-      <section id="planos" class="panel">
-        <h2>Assinaturas</h2>
+   <div class="formRow">
+  <select class="input" id="plano">
+    <option value="basico">Plano Básico (R$7,90)</option>
+    <option value="premium">Plano Premium (R$27,90)</option>
+  </select>  <button class="btnPrimary" id="salvar">Salvar</button>
+  <button class="btnPrimary" id="assinarBasico">
+    Assinar Plano Básico
+  </button>
+  <button class="btnPrimary" id="assinarPremium">
+    Assinar Plano Premium
+  </button>
+</div>
+       
         <p class="muted">Como você não vai investir agora, a assinatura pode ser feita por WhatsApp.</p>
 
         <!-- TROQUE O NÚMERO ABAIXO PELO WHATSAPP OFICIAL -->
@@ -86,7 +86,7 @@
 // ===============================
 // CONFIGURAÇÃO
 // ===============================
-const WHATSAPP = "5519SEUNUMEROAQUI"; // coloque seu número real
+const WHATSAPP = "5516997594551"; // coloque seu número real
 
 const name = document.getElementById("nome");
 const email = document.getElementById("email");
@@ -156,4 +156,5 @@ Email: ${e}
 </body>
 
 </html>
+
 
