@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout • Missio Dei Hub</title>
+<link rel="stylesheet" href="styles.css" />
+<meta name="theme-color" content="#142a47">
+</head>
+
+<body class="appBody">
+
+<header class="appHeader">
+  <a class="btnGhost small" href="loja.html">← Voltar</a>
+  <div class="pageTitle">💳 Finalizar Compra</div>
+  <div></div>
+</header>
+
+<main class="appMain">
+  <div class="panel">
+
+    <h2 id="produtoNome">Produto</h2>
+    <p class="muted" id="produtoDesc"></p>
+
+    <div style="margin-top:15px;">
+      <label>Nome completo</label>
+      <input class="input" id="nome" placeholder="Seu nome" />
+
+      <label style="margin-top:10px;display:block;">Email</label>
+      <input class="input" id="email" placeholder="Seu email" />
+
+      <label style="margin-top:10px;display:block;">Forma de pagamento</label>
+      <select class="input" id="pagamento">
+        <option value="pix">Pix</option>
+        <option value="cartao">Cartão</option>
+      </select>
+    </div>
+
+    <button class="btnPrimary full" style="margin-top:20px;" onclick="finalizar()">
+      Confirmar Pedido
+    </button>
+
+    <div id="resultado" class="notice" style="margin-top:15px;display:none;"></div>
+
+  </div>
+</main>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const produto = params.get("produto") || "E-book";
+  const preco = params.get("preco") || "0";
+
+  document.getElementById("produtoNome").innerText = produto;
+  document.getElementById("produtoDesc").innerText = "Valor: R$ " + preco;
+
+  function finalizar() {
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const pagamento = document.getElementById("pagamento").value;
+
+    const box = document.getElementById("resultado");
+    box.style.display = "block";
+
+    box.innerHTML = `
+      <b>Pedido registrado!</b><br><br>
+      Produto: ${produto}<br>
+      Valor: R$ ${preco}<br>
+      Forma de pagamento: ${pagamento}<br><br>
+      Envie o comprovante para nosso WhatsApp junto com seu nome e email.<br><br>
+      Deus abençoe sua vida 🙏
+    `;
+  }
+</script>
+
+</body>
+</html>
