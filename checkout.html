@@ -1,90 +1,162 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Checkout • Missio Dei Hub</title>
-<link rel="stylesheet" href="styles.css" />
-<meta name="theme-color" content="#142a47">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar Compra - Missio Dei Hub</title>
+
+<link rel="stylesheet" href="styles.css">
+<meta name="theme-color" content="#142a4d">
+
+<style>
+.appBody {
+  background: #0b1220;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.panel {
+  background: #111a2e;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.btnPrimary {
+  background: #ffd000;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 12px;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+}
+</style>
 </head>
 
 <body class="appBody">
-
-<header class="appHeader">
-  <a class="btnGhost small" href="loja.html">← Voltar</a>
-  <div class="pageTitle">💳 Finalizar Compra</div>
-  <div></div>
-</header>
 
 <main class="appMain">
   <div class="panel">
 
     <h2 id="produtoNome">Produto</h2>
-    <p class="muted" id="produtoDesc"></p>
+    <p id="produtoDesc"></p>
 
-    <div style="margin-top:15px;">
-      <label>Nome completo</label>
-      <input class="input" id="nome" placeholder="Seu nome" />
+    <label>Nome completo</label>
+    <input class="input" id="nome" placeholder="Seu nome">
 
-      <label style="margin-top:10px;display:block;">Email</label>
-      <input class="input" id="email" placeholder="Seu email" />
+    <label>Email</label>
+    <input class="input" id="email" placeholder="Seu email">
 
-      <label style="margin-top:10px;display:block;">Forma de pagamento</label>
-      <select class="input" id="pagamento">
-        <option value="pix">Pix</option>
-        <option value="cartao">Cartão</option>
-      </select>
-    </div>
+    <label>Forma de pagamento</label>
+    <select class="input" id="pagamento">
+      <option value="Pix">Pix</option>
+      <option value="Cartão de Crédito">Cartão de Crédito</option>
+    </select>
 
-    <button class="btnPrimary full" style="margin-top:20px;" onclick="finalizar()">
+    <label>Você é assinante?</label>
+    <select class="input" id="plano" onchange="calcularDesconto()">
+      <option value="nenhum">Não sou assinante</option>
+      <option value="basico">Plano Básico (-20%)</option>
+      <option value="premium">Plano Premium (-50%)</option>
+    </select>
+
+    <p>
+      <strong>Valor final: R$ <span id="valorFinal">0.00</span></strong>
+    </p>
+
+    <button class="btnPrimary" onclick="finalizar()">
       Confirmar Pedido
     </button>
-
-    <div id="resultado" class="notice" style="margin-top:15px;display:none;"></div>
 
   </div>
 </main>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const produto = params.get("produto") || "E-book";
-  const preco = params.get("preco") || "0";
 
-  document.getElementById("produtoNome").innerText = produto;
-  document.getElementById("produtoDesc").innerText = "Valor: R$ " + preco;
+const params = new URLSearchParams(window.location.search);
+const produto = params.get("produto") || "E-book";
+const preco = params.get("preco") || "0";
 
-  function finalizar() {
+const precoOriginal = parseFloat(preco.replace(",", "."));
+
+document.getElementById("produtoNome").innerText = produto;
+document.getElementById("produtoDesc").innerText = "Valor original: R$ " + preco;
+
+function calcularDesconto() {
+  const plano = document.getElementById("plano").value;
+
+  let precoFinal = precoOriginal;
+
+  if (plano === "basico") {
+    precoFinal = precoOriginal * 0.8;
+  }
+
+  if (plano === "premium") {
+    precoFinal = precoOriginal * 0.5;
+  }
+
+  document.getElementById("valorFinal").innerText = precoFinal.toFixed(2);
+}
+
+calcularDesconto();
+
+function finalizar() {
   const nome = document.getElementById("nome").value;
   const email = document.getElementById("email").value;
   const pagamento = document.getElementById("pagamento").value;
+  const plano = document.getElementById("plano").value;
 
   if (!nome || !email) {
     alert("Preencha nome e email.");
     return;
   }
 
-  const numero = "5516997594551"; // COLOQUE SEU WHATSAPP AQUI
+  let precoFinal = precoOriginal;
+
+  if (plano === "basico") {
+    precoFinal = precoOriginal * 0.8;
+  }
+
+  if (plano === "premium") {
+    precoFinal = precoOriginal * 0.5;
+  }
+
+  const numero = "5516994594551"; // ⚠️ COLOQUE SEU WHATSAPP AQUI
 
   const mensagem = `
 Olá, quero comprar no Missio Dei Hub.
 
 Produto: ${produto}
-Valor: R$ ${preco}
+Plano escolhido: ${plano}
+Valor original: R$ ${preco}
+Valor final: R$ ${precoFinal.toFixed(2)}
 Forma de pagamento: ${pagamento}
 
 Nome: ${nome}
 Email: ${email}
 
 Aguardo instruções 🙏
-  `;
+`;
 
   const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
   window.open(url, "_blank");
 }
-  }
+
 </script>
 
 </body>
-
 </html>
