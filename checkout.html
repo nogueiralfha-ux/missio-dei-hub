@@ -54,23 +54,37 @@
   document.getElementById("produtoDesc").innerText = "Valor: R$ " + preco;
 
   function finalizar() {
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const pagamento = document.getElementById("pagamento").value;
+  const nome = document.getElementById("nome").value;
+  const email = document.getElementById("email").value;
+  const pagamento = document.getElementById("pagamento").value;
 
-    const box = document.getElementById("resultado");
-    box.style.display = "block";
+  if (!nome || !email) {
+    alert("Preencha nome e email.");
+    return;
+  }
 
-    box.innerHTML = `
-      <b>Pedido registrado!</b><br><br>
-      Produto: ${produto}<br>
-      Valor: R$ ${preco}<br>
-      Forma de pagamento: ${pagamento}<br><br>
-      Envie o comprovante para nosso WhatsApp junto com seu nome e email.<br><br>
-      Deus abençoe sua vida 🙏
-    `;
+  const numero = "5516997594551"; // COLOQUE SEU WHATSAPP AQUI
+
+  const mensagem = `
+Olá, quero comprar no Missio Dei Hub.
+
+Produto: ${produto}
+Valor: R$ ${preco}
+Forma de pagamento: ${pagamento}
+
+Nome: ${nome}
+Email: ${email}
+
+Aguardo instruções 🙏
+  `;
+
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+  window.open(url, "_blank");
+}
   }
 </script>
 
 </body>
+
 </html>
