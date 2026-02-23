@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conta ï Missio Dei Hub</title>
+  <title>Conta ‚Ä¢ Missio Dei Hub</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#142a47">
   <link rel="stylesheet" href="styles.css" />
@@ -20,7 +20,7 @@
 
       <section id="login" class="panel">
         <h2>Acesso</h2>
-        <p class="muted">Sem backend por enquanto: este login È apenas para simular a ·rea do assinante.</p>
+        <p class="muted">Sem backend por enquanto: este login √© apenas para simular a √°rea do assinante.</p>
 
         <div class="formRow">
           <input class="input" id="nome" placeholder="Seu nome" />
@@ -29,7 +29,7 @@
 
         <div class="formRow">
           <select class="input" id="plano">
-            <option value="basico">Plano B·sico (R$7,90)</option>
+            <option value="basico">Plano B√°sico (R$7,90)</option>
             <option value="premium">Plano Premium (R$27,90)</option>
           </select>
           <button class="btnPrimary" id="salvar">Salvar</button>
@@ -40,34 +40,34 @@
 
       <section id="planos" class="panel">
         <h2>Assinaturas</h2>
-        <p class="muted">Como vocÍ n„o vai investir agora, a assinatura pode ser feita por WhatsApp.</p>
+        <p class="muted">Como voc√™ n√£o vai investir agora, a assinatura pode ser feita por WhatsApp.</p>
 
-        <!-- TROQUE O N⁄MERO ABAIXO PELO WHATSAPP OFICIAL -->
+        <!-- TROQUE O N√öMERO ABAIXO PELO WHATSAPP OFICIAL -->
         <div class="twoCols">
-          <a class="btnPrimary full" id="waBasico" href="#">Assinar B·sico via WhatsApp</a>
+          <a class="btnPrimary full" id="waBasico" href="#">Assinar B√°sico via WhatsApp</a>
           <a class="btnGhost full" id="waPremium" href="#">Assinar Premium via WhatsApp</a>
         </div>
 
         <div class="notice">
-          <b>ApÛs o pagamento</b>, o assinante envia comprovante + nome + e-mail + cidade.
-          VocÍ libera o acesso (mais tarde automatizamos).
+          <b>Ap√≥s o pagamento</b>, o assinante envia comprovante + nome + e-mail + cidade.
+          Voc√™ libera o acesso (mais tarde automatizamos).
         </div>
       </section>
 
       <section id="devocional" class="panel">
         <h2>Devocional</h2>
-        <p class="muted">Aqui entra sua leitura di·ria. (PrÛximo passo: carregar conte˙do por JSON.)</p>
+        <p class="muted">Aqui entra sua leitura di√°ria. (Pr√≥ximo passo: carregar conte√∫do por JSON.)</p>
       </section>
 
       <section id="biblia" class="panel">
-        <h2>BÌblia Online (Gr·tis)</h2>
-        <p class="muted">Aqui vocÍ pode colocar links para leitura online. (PrÛximo passo: integrar texto.)</p>
+        <h2>B√≠blia Online (Gr√°tis)</h2>
+        <p class="muted">Aqui voc√™ pode colocar links para leitura online. (Pr√≥ximo passo: integrar texto.)</p>
       </section>
 
       <section id="missao" class="panel">
-        <h2>Fazer parte da Miss„o</h2>
-        <p class="muted">Ofertas espor·dicas e compromisso mensal.</p>
-        <a class="btnPrimary full" href="#" id="waMissao">Quero apoiar a miss„o via WhatsApp</a>
+        <h2>Fazer parte da Miss√£o</h2>
+        <p class="muted">Ofertas espor√°dicas e compromisso mensal.</p>
+        <a class="btnPrimary full" href="#" id="waMissao">Quero apoiar a miss√£o via WhatsApp</a>
       </section>
 
     </div>
@@ -83,47 +83,116 @@
 
   <script src="app.js"></script>
   <script>
-    const WHATSAPP = "55XXXXXXXXXXX"; // <<< TROQUE AQUI (55 + DDD + n˙mero)
+   
 
-    const nome = document.getElementById("nome");
-    const email = document.getElementById("email");
-    const plano = document.getElementById("plano");
-    const status = document.getElementById("status");
+// ===============================
+// CAPTURA PRODUTO E PRE√áO
+// ===============================
+const params = new URLSearchParams(window.location.search);
+const produto = params.get("produto") || "E-book";
+const preco = params.get("preco") || "0";
 
-    function buildWhats() {
-      const n = (nome.value || "").trim();
-      const e = (email.value || "").trim();
-      const baseMsg =
-        `Ol·! Quero assinar o Missio Dei Hub.%0A` +
-        `Nome: ${encodeURIComponent(n)}%0A` +
-        `Email: ${encodeURIComponent(e)}%0A` +
-        `Plano: `;
+const precoOriginal = parseFloat(preco.replace(",", "."));
 
-      document.getElementById("waBasico").href =
-        `https://wa.me/${WHATSAPP}?text=${baseMsg}B·sico (R$7,90)%0A` +
-        `Forma de pagamento: Pix/Cart„o`;
+document.getElementById("produtoNome").innerText = produto;
+document.getElementById("produtoDesc").innerText = "Valor original: R$ " + preco;
 
-      document.getElementById("waPremium").href =
-        `https://wa.me/${WHATSAPP}?text=${baseMsg}Premium (R$27,90)%0A` +
-        `Forma de pagamento: Pix/Cart„o`;
 
-      document.getElementById("waMissao").href =
-        `https://wa.me/${WHATSAPP}?text=Ol·! Quero fazer parte da miss„o e apoiar o projeto Missio Dei Hub.`;
-    }
+// ===============================
+// CALCULAR DESCONTO AUTOM√ÅTICO
+// ===============================
+function calcularDesconto() {
 
-    document.getElementById("salvar").onclick = () => {
-      localStorage.setItem("mdh_nome", nome.value);
-      localStorage.setItem("mdh_email", email.value);
-      localStorage.setItem("mdh_plano", plano.value);
-      status.textContent = "Dados salvos neste dispositivo ?";
-      buildWhats();
-    };
+  const planoSalvo = localStorage.getItem("plano");
 
-    // carregar dados
-    nome.value = localStorage.getItem("mdh_nome") || "";
-    email.value = localStorage.getItem("mdh_email") || "";
-    plano.value = localStorage.getItem("mdh_plano") || "basico";
-    buildWhats();
+  let precoFinal = precoOriginal;
+  let porcentagem = 0;
+
+  if (planoSalvo === "basico") {
+    precoFinal = precoOriginal * 0.8;
+    porcentagem = 20;
+  }
+
+  if (planoSalvo === "premium") {
+    precoFinal = precoOriginal * 0.5;
+    porcentagem = 50;
+  }
+
+  document.getElementById("valorFinal").innerText = precoFinal.toFixed(2);
+
+  const badge = document.getElementById("badgeDesconto");
+  const oferta = document.getElementById("ofertaUpgrade");
+  const botao = document.getElementById("btnUpgrade");
+
+  // Badge desconto
+  if (porcentagem > 0) {
+    badge.style.display = "block";
+    badge.innerText = "Voc√™ economizou " + porcentagem + "% üéâ";
+  } else {
+    badge.style.display = "none";
+  }
+
+  // Oferta para n√£o assinante
+  if (!planoSalvo) {
+    oferta.innerText = "üí° Assine o Plano B√°sico e economize 20% nesta compra!";
+    botao.style.display = "inline-block";
+  } else {
+    oferta.innerText = "";
+    botao.style.display = "none";
+  }
+
+}
+
+// Executa ao carregar p√°gina
+calcularDesconto();
+
+
+// ===============================
+// FINALIZAR COMPRA
+// ===============================
+function finalizar() {
+
+  const nome = document.getElementById("nome").value;
+  const email = document.getElementById("email").value;
+  const pagamento = document.getElementById("pagamento").value;
+  const plano = localStorage.getItem("plano") || "nenhum";
+
+  if (!nome || !email) {
+    alert("Preencha nome e email.");
+    return;
+  }
+
+  let precoFinal = precoOriginal;
+
+  if (plano === "basico") {
+    precoFinal = precoOriginal * 0.8;
+  }
+
+  if (plano === "premium") {
+    precoFinal = precoOriginal * 0.5;
+  }
+
+  const numero = "5519SEUNUMEROAQUI"; // ‚ö†Ô∏è coloque seu n√∫mero real
+
+  const mensagem = `
+Ol√°, quero comprar no Missio Dei Hub.
+
+Produto: ${produto}
+Plano: ${plano}
+Valor final: R$ ${precoFinal.toFixed(2)}
+Forma de pagamento: ${pagamento}
+
+Nome: ${nome}
+Email: ${email}
+`;
+
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+  window.open(url, "_blank");
+}
+
+</script>
   </script>
 </body>
+
 </html>
