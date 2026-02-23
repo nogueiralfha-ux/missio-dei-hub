@@ -179,10 +179,36 @@ Aguardo instruções 🙏
 
   window.open(url, "_blank");
 }
+function calcularDesconto() {
+  const plano = document.getElementById("plano").value;
+  let precoFinal = precoOriginal;
+  let porcentagem = 0;
 
+  if (plano === "basico") {
+    precoFinal = precoOriginal * 0.8;
+    porcentagem = 20;
+  }
+
+  if (plano === "premium") {
+    precoFinal = precoOriginal * 0.5;
+    porcentagem = 50;
+  }
+
+  document.getElementById("valorFinal").innerText = precoFinal.toFixed(2);
+
+  const badge = document.getElementById("badgeDesconto");
+
+  if (porcentagem > 0) {
+    badge.style.display = "block";
+    badge.innerText = "Você economizou " + porcentagem + "% 🎉";
+  } else {
+    badge.style.display = "none";
+  }
+}
 </script>
 
 </body>
 </html>
+
 
 
