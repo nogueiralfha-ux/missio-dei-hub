@@ -91,6 +91,23 @@
     <p>
       <strong>Valor final: R$ <span id="valorFinal">0.00</span></strong>
     </p>
+    <p id="ofertaUpgrade" style="color:#ffd000; margin-top:10px;"></p>
+
+<a id="btnUpgrade"
+   href="planos.html"
+   style="
+     display:none;
+     margin-top:10px;
+     display:inline-block;
+     background:#00ff88;
+     color:#000;
+     padding:8px 16px;
+     border-radius:25px;
+     font-weight:bold;
+     text-decoration:none;
+   ">
+   Quero economizar agora 🚀
+</a>
 <p id="badgeDesconto" style="
   display:none;
   background:#00ff88;
@@ -204,11 +221,22 @@ function calcularDesconto() {
   } else {
     badge.style.display = "none";
   }
+  const oferta = document.getElementById("ofertaUpgrade");
+const botao = document.getElementById("btnUpgrade");
+
+if (!planoSalvo) {
+  oferta.innerText = "💡 Assine o Plano Básico e economize 20% nesta compra!";
+  botao.style.display = "inline-block";
+} else {
+  oferta.innerText = "";
+  botao.style.display = "none";
+}
 }
 </script>
 
 </body>
 </html>
+
 
 
 
