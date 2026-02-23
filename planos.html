@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planos - Missio Dei Hub</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background:#0b1220; color:white; font-family:Arial; }
+.planos { display:flex; gap:20px; justify-content:center; margin-top:60px; flex-wrap:wrap;}
+.card {
+  background:#111a2e;
+  padding:25px;
+  border-radius:16px;
+  width:280px;
+  text-align:center;
+}
+.preco { font-size:28px; font-weight:bold; margin:10px 0;}
+.btn {
+  background:#ffd000;
+  padding:12px;
+  border-radius:30px;
+  display:block;
+  text-decoration:none;
+  color:black;
+  font-weight:bold;
+}
+.destaque { border:2px solid #ffd000; transform:scale(1.05); }
+</style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;margin-top:40px;">Escolha seu Plano</h1>
+
+<div class="planos">
+
+  <div class="card">
+    <h2>Básico</h2>
+    <div class="preco">R$25,90</div>
+    <p>✔ Devocional<br>✔ Desafio<br>✔ 20% desconto na Loja</p>
+    <a class="btn" href="#">Assinar</a>
+  </div>
+
+  <div class="card destaque">
+    <h2>Premium</h2>
+    <div class="preco">R$47,90</div>
+    <p>✔ Tudo do Básico<br>✔ Área Kids<br>✔ 50% desconto na Loja</p>
+    <a class="btn" href="#">Assinar</a>
+  </div>
+
+</div>
+
+</body>
+</html>
