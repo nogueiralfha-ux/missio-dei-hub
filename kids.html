@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Área Kids • Missio Dei Hub</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#142a47">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="appBody">
+  <header class="appHeader">
+    <a class="btnGhost small" href="app.html">? Voltar</a>
+    <div class="pageTitle">?? Área Kids</div>
+    <a class="btnGhost small" href="conta.html#planos">Planos</a>
+  </header>
+
+  <main class="appMain">
+    <div class="kidsBox">
+      <div class="kidsTop">
+        <div class="pill">Jogo da Memória (demo)</div>
+        <button class="btnGhost small" id="resetKids">Reiniciar</button>
+      </div>
+
+      <div class="memoryGrid" id="grid"></div>
+
+      <p class="muted center" style="margin-top:14px;">
+        Próximo passo: adicionar categorias (Nomes Bíblicos, Cidades Bíblicas, Alfabeto, Números, Animais…).
+      </p>
+    </div>
+  </main>
+
+  <nav class="bottomNav">
+    <a class="navItem" href="app.html">??<span>Home</span></a>
+    <a class="navItem" href="desafio.html">??<span>Desafio</span></a>
+    <a class="navItem active" href="kids.html">??<span>Kids</span></a>
+    <a class="navItem" href="cursos.html">??<span>Cursos</span></a>
+    <a class="navItem" href="conta.html">??<span>Conta</span></a>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    const symbols = ["?","?","???","???","??","??","??","??","??","??","??","??"];
+    let first = null;
+    let lock = false;
+
+    function shuffle(a){
+      for (let i=a.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
+      return a;
+    }
+
+    function build(){
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      first = null; lock = false;
+
+      const deck = shuffle([...symbols]);
+      deck.forEach(sym=>{
+        const card = document.createElement("button");
+        card.className = "memCard";
+        card.dataset.sym = sym;
+        card.innerHTML = `<span class="memFace">?</span><span class="memBack">${sym}</span>`;
+        card.onclick = () => flip(card);
+        grid.appendChild(card);
+      });
+    }
+
+    function flip(card){
+      if(lock) return;
+      if(card.classList.contains("done") || card.classList.contains("open")) return;
+
+      card.classList.add("open");
+      if(!first){
+        first = card;
+        return;
+      }
+
+      const second = card;
+      lock = true;
+
+      if(first.dataset.sym === second.dataset.sym){
+        first.classList.add("done");
+        second.classList.add("done");
+        first = null;
+        lock = false;
+      } else {
+        setTimeout(()=>{
+          first.classList.remove("open");
+          second.classList.remove("open");
+          first = null;
+          lock = false;
+        }, 650);
+      }
+    }
+
+    document.getElementById("resetKids").onclick = build;
+    build();
+  </script>
+</body>
+</html>

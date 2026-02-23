@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Missio Dei Hub • App</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#142a47">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="appBody">
+  <header class="appHeader">
+    <div class="brand mini">
+      <div class="brandMark">??</div>
+      <div>
+        <div class="brandName">Missio Dei Hub</div>
+        <div class="brandTag">Centro digital de discipulado</div>
+      </div>
+    </div>
+    <a class="btnGhost small" href="conta.html">Conta</a>
+  </header>
+
+  <main class="appMain">
+    <section class="appGrid">
+      <a class="appCard" href="desafio.html">
+        <div class="appIcon">??</div>
+        <div class="appTitle">Desafio Bíblico</div>
+        <div class="appDesc">Quiz estilo Show do Milhão</div>
+      </a>
+
+      <a class="appCard" href="cursos.html">
+        <div class="appIcon">??</div>
+        <div class="appTitle">Cursos</div>
+        <div class="appDesc">Capacitação bíblica e missionária</div>
+      </a>
+
+      <a class="appCard" href="kids.html">
+        <div class="appIcon">??</div>
+        <div class="appTitle">Área Kids</div>
+        <div class="appDesc">Jogos, histórias e vídeos</div>
+      </a>
+
+      <a class="appCard" href="conta.html#biblia">
+        <div class="appIcon">??</div>
+        <div class="appTitle">Bíblia Online</div>
+        <div class="appDesc">Leitura gratuita</div>
+      </a>
+
+      <a class="appCard" href="conta.html#devocional">
+        <div class="appIcon">??</div>
+        <div class="appTitle">Devocional</div>
+        <div class="appDesc">Leitura e aplicação diária</div>
+      </a>
+
+      <a class="appCard" href="conta.html#missao">
+        <div class="appIcon">??</div>
+        <div class="appTitle">Fazer parte</div>
+        <div class="appDesc">Apoiar a missão</div>
+      </a>
+    </section>
+  </main>
+
+  <nav class="bottomNav">
+    <a class="navItem active" href="app.html">??<span>Home</span></a>
+    <a class="navItem" href="desafio.html">??<span>Desafio</span></a>
+    <a class="navItem" href="kids.html">??<span>Kids</span></a>
+    <a class="navItem" href="cursos.html">??<span>Cursos</span></a>
+    <a class="navItem" href="conta.html">??<span>Conta</span></a>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desafio Bíblico • Missio Dei Hub</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#142a47">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="appBody">
+  <header class="appHeader">
+    <a class="btnGhost small" href="app.html">? Voltar</a>
+    <div class="pageTitle">?? Desafio Bíblico</div>
+    <a class="btnGhost small" href="conta.html#planos">Planos</a>
+  </header>
+
+  <main class="appMain">
+    <div class="quizBox">
+      <div class="quizTop">
+        <div class="pill">Modo demo (vamos plugar suas 500 perguntas depois)</div>
+        <div class="score">Pontos: <b id="score">0</b></div>
+      </div>
+
+      <h2 id="qText" class="qText">Carregando...</h2>
+
+      <div class="answers" id="answers"></div>
+
+      <div class="quizBottom">
+        <button class="btnGhost" id="restart">Reiniciar</button>
+        <div class="muted">Dica: depois vamos adicionar “som”, “medalhas” e “Show do Milhão”.</div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottomNav">
+    <a class="navItem" href="app.html">??<span>Home</span></a>
+    <a class="navItem active" href="desafio.html">??<span>Desafio</span></a>
+    <a class="navItem" href="kids.html">??<span>Kids</span></a>
+    <a class="navItem" href="cursos.html">??<span>Cursos</span></a>
+    <a class="navItem" href="conta.html">??<span>Conta</span></a>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    const QUESTIONS = [
+      { q: "Quem construiu a arca?", a: ["Moisés", "Noé", "Abraão", "Davi"], correct: 1 },
+      { q: "Qual é o último livro da Bíblia?", a: ["Judas", "Apocalipse", "Atos", "Romanos"], correct: 1 },
+      { q: "Quem derrotou Golias?", a: ["Saul", "Sansão", "Davi", "Josué"], correct: 2 },
+      { q: "Jesus nasceu em qual cidade?", a: ["Nazaré", "Jerusalém", "Belém", "Cafarnaum"], correct: 2 }
+    ];
+
+    let idx = 0;
+    let score = 0;
+    let locked = false;
+
+    const qText = document.getElementById("qText");
+    const answers = document.getElementById("answers");
+    const scoreEl = document.getElementById("score");
+
+    function render() {
+      locked = false;
+      const item = QUESTIONS[idx];
+      qText.textContent = item.q;
+      answers.innerHTML = "";
+      item.a.forEach((txt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "ansBtn";
+        btn.textContent = txt;
+        btn.onclick = () => pick(i);
+        answers.appendChild(btn);
+      });
+    }
+
+    function pick(i) {
+      if (locked) return;
+      locked = true;
+
+      const item = QUESTIONS[idx];
+      const btns = [...document.querySelectorAll(".ansBtn")];
+
+      btns[item.correct].classList.add("ok");
+      if (i !== item.correct) btns[i].classList.add("bad");
+      if (i === item.correct) score += 10;
+
+      scoreEl.textContent = score;
+
+      setTimeout(() => {
+        idx++;
+        if (idx >= QUESTIONS.length) {
+          qText.textContent = `Fim da demo! Sua pontuação: ${score}.`;
+          answers.innerHTML = `<a class="btnPrimary full" href="conta.html#planos">Desbloquear o Desafio Completo</a>`;
+          return;
+        }
+        render();
+      }, 900);
+    }
+
+    document.getElementById("restart").onclick = () => {
+      idx = 0; score = 0; scoreEl.textContent = score; render();
+    };
+
+    render();
+  </script>
+</body>
+</html>

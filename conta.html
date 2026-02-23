@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conta • Missio Dei Hub</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#142a47">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="appBody">
+  <header class="appHeader">
+    <a class="btnGhost small" href="app.html">? Voltar</a>
+    <div class="pageTitle">?? Conta</div>
+    <a class="btnGhost small" href="index.html">Site</a>
+  </header>
+
+  <main class="appMain">
+    <div class="stack">
+
+      <section id="login" class="panel">
+        <h2>Acesso</h2>
+        <p class="muted">Sem backend por enquanto: este login é apenas para simular a área do assinante.</p>
+
+        <div class="formRow">
+          <input class="input" id="nome" placeholder="Seu nome" />
+          <input class="input" id="email" placeholder="Seu e-mail" />
+        </div>
+
+        <div class="formRow">
+          <select class="input" id="plano">
+            <option value="basico">Plano Básico (R$7,90)</option>
+            <option value="premium">Plano Premium (R$27,90)</option>
+          </select>
+          <button class="btnPrimary" id="salvar">Salvar</button>
+        </div>
+
+        <div class="muted" id="status"></div>
+      </section>
+
+      <section id="planos" class="panel">
+        <h2>Assinaturas</h2>
+        <p class="muted">Como você não vai investir agora, a assinatura pode ser feita por WhatsApp.</p>
+
+        <!-- TROQUE O NÚMERO ABAIXO PELO WHATSAPP OFICIAL -->
+        <div class="twoCols">
+          <a class="btnPrimary full" id="waBasico" href="#">Assinar Básico via WhatsApp</a>
+          <a class="btnGhost full" id="waPremium" href="#">Assinar Premium via WhatsApp</a>
+        </div>
+
+        <div class="notice">
+          <b>Após o pagamento</b>, o assinante envia comprovante + nome + e-mail + cidade.
+          Você libera o acesso (mais tarde automatizamos).
+        </div>
+      </section>
+
+      <section id="devocional" class="panel">
+        <h2>Devocional</h2>
+        <p class="muted">Aqui entra sua leitura diária. (Próximo passo: carregar conteúdo por JSON.)</p>
+      </section>
+
+      <section id="biblia" class="panel">
+        <h2>Bíblia Online (Grátis)</h2>
+        <p class="muted">Aqui você pode colocar links para leitura online. (Próximo passo: integrar texto.)</p>
+      </section>
+
+      <section id="missao" class="panel">
+        <h2>Fazer parte da Missão</h2>
+        <p class="muted">Ofertas esporádicas e compromisso mensal.</p>
+        <a class="btnPrimary full" href="#" id="waMissao">Quero apoiar a missão via WhatsApp</a>
+      </section>
+
+    </div>
+  </main>
+
+  <nav class="bottomNav">
+    <a class="navItem" href="app.html">??<span>Home</span></a>
+    <a class="navItem" href="desafio.html">??<span>Desafio</span></a>
+    <a class="navItem" href="kids.html">??<span>Kids</span></a>
+    <a class="navItem" href="cursos.html">??<span>Cursos</span></a>
+    <a class="navItem active" href="conta.html">??<span>Conta</span></a>
+  </nav>
+
+  <script src="app.js"></script>
+  <script>
+    const WHATSAPP = "55XXXXXXXXXXX"; // <<< TROQUE AQUI (55 + DDD + número)
+
+    const nome = document.getElementById("nome");
+    const email = document.getElementById("email");
+    const plano = document.getElementById("plano");
+    const status = document.getElementById("status");
+
+    function buildWhats() {
+      const n = (nome.value || "").trim();
+      const e = (email.value || "").trim();
+      const baseMsg =
+        `Olá! Quero assinar o Missio Dei Hub.%0A` +
+        `Nome: ${encodeURIComponent(n)}%0A` +
+        `Email: ${encodeURIComponent(e)}%0A` +
+        `Plano: `;
+
+      document.getElementById("waBasico").href =
+        `https://wa.me/${WHATSAPP}?text=${baseMsg}Básico (R$7,90)%0A` +
+        `Forma de pagamento: Pix/Cartão`;
+
+      document.getElementById("waPremium").href =
+        `https://wa.me/${WHATSAPP}?text=${baseMsg}Premium (R$27,90)%0A` +
+        `Forma de pagamento: Pix/Cartão`;
+
+      document.getElementById("waMissao").href =
+        `https://wa.me/${WHATSAPP}?text=Olá! Quero fazer parte da missão e apoiar o projeto Missio Dei Hub.`;
+    }
+
+    document.getElementById("salvar").onclick = () => {
+      localStorage.setItem("mdh_nome", nome.value);
+      localStorage.setItem("mdh_email", email.value);
+      localStorage.setItem("mdh_plano", plano.value);
+      status.textContent = "Dados salvos neste dispositivo ?";
+      buildWhats();
+    };
+
+    // carregar dados
+    nome.value = localStorage.getItem("mdh_nome") || "";
+    email.value = localStorage.getItem("mdh_email") || "";
+    plano.value = localStorage.getItem("mdh_plano") || "basico";
+    buildWhats();
+  </script>
+</body>
+</html>
