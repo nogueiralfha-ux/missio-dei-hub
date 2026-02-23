@@ -83,116 +83,77 @@
 
   <script src="app.js"></script>
   <script>
-   
+// ===============================
+// CONFIGURAÇÃO
+// ===============================
+const WHATSAPP = "5519SEUNUMEROAQUI"; // coloque seu número real
+
+const name = document.getElementById("nome");
+const email = document.getElementById("email");
+const status = document.getElementById("status");
 
 // ===============================
-// CAPTURA PRODUTO E PREÇO
+// SALVAR PLANO
 // ===============================
-const params = new URLSearchParams(window.location.search);
-const produto = params.get("produto") || "E-book";
-const preco = params.get("preco") || "0";
-
-const precoOriginal = parseFloat(preco.replace(",", "."));
-
-document.getElementById("produtoNome").innerText = produto;
-document.getElementById("produtoDesc").innerText = "Valor original: R$ " + preco;
-
-
-// ===============================
-// CALCULAR DESCONTO AUTOMÁTICO
-// ===============================
-function calcularDesconto() {
-
-  const planoSalvo = localStorage.getItem("plano");
-
-  let precoFinal = precoOriginal;
-  let porcentagem = 0;
-
-  if (planoSalvo === "basico") {
-    precoFinal = precoOriginal * 0.8;
-    porcentagem = 20;
-  }
-
-  if (planoSalvo === "premium") {
-    precoFinal = precoOriginal * 0.5;
-    porcentagem = 50;
-  }
-
-  document.getElementById("valorFinal").innerText = precoFinal.toFixed(2);
-
-  const badge = document.getElementById("badgeDesconto");
-  const oferta = document.getElementById("ofertaUpgrade");
-  const botao = document.getElementById("btnUpgrade");
-
-  // Badge desconto
-  if (porcentagem > 0) {
-    badge.style.display = "block";
-    badge.innerText = "Você economizou " + porcentagem + "% 🎉";
-  } else {
-    badge.style.display = "none";
-  }
-
-  // Oferta para não assinante
-  if (!planoSalvo) {
-    oferta.innerText = "💡 Assine o Plano Básico e economize 20% nesta compra!";
-    botao.style.display = "inline-block";
-  } else {
-    oferta.innerText = "";
-    botao.style.display = "none";
-  }
-
+function salvarPlano(tipo) {
+  localStorage.setItem("plano", tipo);
+  atualizarStatus();
 }
 
-// Executa ao carregar página
-calcularDesconto();
+// ===============================
+// ATUALIZAR STATUS VISUAL
+// ===============================
+function atualizarStatus() {
+  const plano = localStorage.getItem("plano");
 
+  if (plano === "basico") {
+    status.innerText = "Plano Básico ativo ✅ (20% desconto na loja)";
+  } else if (plano === "premium") {
+    status.innerText = "Plano Premium ativo 👑 (50% desconto na loja)";
+  } else {
+    status.innerText = "Nenhum plano ativo";
+  }
+}
+
+atualizarStatus();
 
 // ===============================
-// FINALIZAR COMPRA
+// GERAR WHATSAPP
 // ===============================
-function finalizar() {
+function enviarWhats(planoEscolhido) {
 
-  const nome = document.getElementById("nome").value;
-  const email = document.getElementById("email").value;
-  const pagamento = document.getElementById("pagamento").value;
-  const plano = localStorage.getItem("plano") || "nenhum";
+  const n = name.value || "";
+  const e = email.value || "";
 
-  if (!nome || !email) {
+  if (!n || !e) {
     alert("Preencha nome e email.");
     return;
   }
 
-  let precoFinal = precoOriginal;
-
-  if (plano === "basico") {
-    precoFinal = precoOriginal * 0.8;
-  }
-
-  if (plano === "premium") {
-    precoFinal = precoOriginal * 0.5;
-  }
-
-  const numero = "5519SEUNUMEROAQUI"; // ⚠️ coloque seu número real
-
   const mensagem = `
-Olá, quero comprar no Missio Dei Hub.
+Olá! Quero assinar o Missio Dei Hub.
 
-Produto: ${produto}
-Plano: ${plano}
-Valor final: R$ ${precoFinal.toFixed(2)}
-Forma de pagamento: ${pagamento}
-
-Nome: ${nome}
-Email: ${email}
+Plano: ${planoEscolhido}
+Nome: ${n}
+Email: ${e}
 `;
 
-  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-
+  const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
   window.open(url, "_blank");
+
+  // Salva plano automaticamente
+  if (planoEscolhido === "Básico") {
+    salvarPlano("basico");
+  }
+
+  if (planoEscolhido === "Premium") {
+    salvarPlano("premium");
+  }
 }
 
-</script>
+</script>  
   </script>
 </body>
 
 </html>
+
