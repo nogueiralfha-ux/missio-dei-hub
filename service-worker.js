@@ -1,23 +1,11 @@
-const CACHE_NAME = "missio-dei-hub-v1";
-
-const urlsToCache = [
-  "./",
-  "./index.html",
-  "./manifest.json"
-];
-
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
+self.addEventListener("install", function (event) {
+  console.log("Service Worker instalado");
 });
 
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+self.addEventListener("activate", function (event) {
+  console.log("Service Worker ativado");
 });
 
-Add service worker
+self.addEventListener("fetch", function (event) {
+  // apenas passa a requisição adiante
+});
