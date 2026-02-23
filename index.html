@@ -1,80 +1,180 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missão Peru - Tacna</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .section { display: none; }
-        .active { display: block; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missio Dei Hub</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #0e1a2b;
+    color: #ffffff;
+}
+
+header {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #142a47, #0e1a2b);
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 20px;
+    color: #c9d6ff;
+}
+
+section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #ffd700;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #162d4f;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.pricing {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.plan {
+    background: #162d4f;
+    padding: 30px;
+    border-radius: 10px;
+    width: 280px;
+    text-align: center;
+}
+
+.plan h3 {
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 28px;
+    color: #ffd700;
+    margin: 15px 0;
+}
+
+button {
+    background-color: #ffd700;
+    border: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #e6c200;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #142a47;
+    font-size: 14px;
+}
+</style>
 </head>
-<body class="bg-[#0A2540] text-white min-h-screen pb-24">
 
-    <div class="bg-gradient-to-b from-[#15803D] to-[#0A2540] py-10 text-center shadow-lg">
-        <img src="logo-missao-peru.png" alt="Logo" class="mx-auto w-32 h-32 rounded-full border-4 border-[#E8B923] mb-4">
-        <h1 class="text-2xl font-bold text-[#E8B923]">Missão Peru - Tacna</h1>
-        <p class="text-sm text-gray-300">APOIO MENSAL 12 MESES</p>
+<body>
+
+<header>
+    <h1>Missio Dei Hub</h1>
+    <p>Conectando você à Missão de Deus</p>
+</header>
+
+<section>
+    <h2>Sobre o Aplicativo</h2>
+    <p style="text-align:center; max-width:700px; margin:auto;">
+        O Missio Dei Hub é um centro digital de formação bíblica, discipulado e capacitação missionária para toda a família.
+        Nossa missão é formar vidas comprometidas com a Palavra e com o propósito de Deus.
+    </p>
+</section>
+
+<section>
+    <h2>Funcionalidades</h2>
+    <div class="features">
+        <div class="card">📖 Devocional Diário</div>
+        <div class="card">🎯 Desafio Bíblico Missionário</div>
+        <div class="card">📚 Bíblia Online Gratuita</div>
+        <div class="card">🎓 Cursos Bíblicos</div>
+        <div class="card">👨‍👩‍👧 Área KIDS Educativa</div>
+        <div class="card">🛒 Loja Missionária</div>
+        <div class="card">🙌 Fazer Parte da Missão</div>
     </div>
+</section>
 
-    <div id="home" class="section active p-6 text-center">
-        <h2 class="text-[#E8B923] text-xl font-bold mb-4">Palavra do Dia</h2>
-        <div class="bg-white/10 p-8 rounded-2xl border-l-4 border-[#15803D] mb-6">
-            <p class="italic text-lg">"Ide por todo o mundo e pregai o evangelho..."</p>
-        </div><div id="oracao" class="section hidden p-6">
-    <h2 class="text-[#E8B923] text-2xl font-bold mb-6 text-center underline">Clamor por Tacna</h2>
-    <div class="space-y-4">
-        <div class="bg-white/5 p-4 rounded-xl border-l-4 border-[#15803D]">
-            <p class="font-bold text-[#E8B923]">1. Portas Abertas</p>
-            <p class="text-sm">Para que o povo Quéchua receba a mensagem com o coração aberto.</p>
+<section>
+    <h2>Planos de Assinatura</h2>
+    <div class="pricing">
+
+        <div class="plan">
+            <h3>Plano Básico</h3>
+            <div class="price">R$ 7,90 / mês</div>
+            <p>
+                ✔ Devocional<br>
+                ✔ Desafio Bíblico<br>
+                ✔ Bíblia Online<br>
+                ✔ 1 Curso<br>
+                ✔ 1 modalidade Kids
+            </p>
+            <button>Assinar Agora</button>
         </div>
-        <div class="bg-white/5 p-4 rounded-xl border-l-4 border-[#15803D]">
-            <p class="font-bold text-[#E8B923]">2. Provisão</p>
-            <p class="text-sm">Pelo sustento da base e dos novos missionários que chegarão.</p>
+
+        <div class="plan">
+            <h3>Plano Premium</h3>
+            <div class="price">R$ 27,90 / mês</div>
+            <p>
+                ✔ Acesso Completo<br>
+                ✔ Todos os Cursos<br>
+                ✔ Área Kids Completa<br>
+                ✔ Todos os Recursos Liberados
+            </p>
+            <button>Assinar Premium</button>
         </div>
-        <div class="bg-white/5 p-4 rounded-xl border-l-4 border-[#15803D]">
-            <p class="font-bold text-[#E8B923]">3. Saúde e Proteção</p>
-            <p class="text-sm">Pela família missionária contra toda enfermidade e oposição.</p>
-        </div>
-    </div>
-    <button onclick="alert('Obrigado por interceder! Sua oração move os céus.')" class="mt-8 w-full border-2 border-[#E8B923] py-3 rounded-lg font-bold text-[#E8B923]">
-        EU OREI POR ESTES MOTIVOS
-    </button>
-</div>
 
-<div id="palavra" class="section hidden p-6 text-center">
-    <h2 class="text-[#E8B923] text-2xl font-bold mb-6">Trilha Missionária</h2>
-    <div class="bg-[#0A2540] border border-white/10 p-6 rounded-3xl shadow-2xl">
-        <p class="text-xl italic mb-4">"Pede-me, e eu te darei as nações por herança, e os fins da terra por tua possessão."</p>
-        <p class="font-bold text-[#15803D]">Salmos 2:8</p>
-        <hr class="my-6 border-white/10">
-        <p class="text-sm text-gray-400">Leitura sugerida para hoje:</p>
-        <p class="text-lg font-bold">Atos Capítulo 13</p>
     </div>
-</div>
-        <a href="https://wa.me/5500000000000" class="block w-full bg-[#15803D] py-4 rounded-xl font-bold uppercase tracking-widest">
-            Compartilhar no WhatsApp
-        </a>
-    </div>
+</section>
 
-    <div id="doar" class="section p-6 text-center">
-        <h2 class="text-[#E8B923] text-xl font-bold mb-4">Apoio Financeiro</h2>
-        <div class="bg-white/5 p-6 rounded-2xl">
-            <p class="mb-4">Sua semente ajuda a manter a base em Tacna.</p>
-            <p class="text-2xl font-mono bg-black/30 p-3 rounded">05475258856</p>
-            <button onclick="alert('Chave Copiada!')" class="mt-4 text-[#E8B923] font-bold underline">COPIAR CHAVE PIX</button>
-        </div>
-    </div>
+<section>
+    <h2>Manifesto</h2>
+    <p style="max-width:800px; margin:auto; text-align:center;">
+        Cremos que a missão pertence a Deus.
+        O Missio Dei Hub nasce para ser um centro digital de formação bíblica,
+        discipulado e envio missionário.
+        Nosso compromisso é formar uma geração preparada para viver
+        e anunciar o Evangelho com fidelidade às Escrituras.
+    </p>
+</section>
 
-    <div id="oracao" class="section p-6">
-        <h2 class="text-[#E8B923] text-xl font-bold mb-4 text-center">Motivos de Oração</h2>
-        <ul class="space-y-3">
-            <li class="bg-white/5 p-3 rounded">🙏 Pelas famílias Quéchua</li>
-            <li class="bg-white/5 p-3 rounded">🙏 Pela saúde dos missionários</li>
-            <li class="bg-white/5 p-3 rounded">🙏 Pela provisão da nova base</li>
-        </ul>
-    </div>
+<footer>
+    © 2026 Missio Dei Hub - Todos os direitos reservados.
+</footer>
 
-    <div id="quiz" class="section p-6 text-center">
-        <h2 class="text-[#E8B923] text-xl font-bold mb-4">Desafio Missionário</h2>
+</body>
+</html>
